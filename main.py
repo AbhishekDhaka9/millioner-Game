@@ -1,3 +1,4 @@
+# List of quiz questions, each with options and the correct answer key
 questions = [
     {
         'question': 'Who was the first President of India?',
@@ -51,23 +52,36 @@ questions = [
     }
 ]
 
-prices=[200000,500000,1000000]
-p=1
+# Prize levels for safe exits at milestones
+prices = [200000, 500000, 1000000]
+
+# p is a progress counter that increases when the player answers correctly
+p = 1
+
 for question in questions:
-    print(f"Question: {question['question']} \nOptions:{question['options']}")
+    # Display the current question and answer choices
+    print(f"Question: {question['question']} \nOptions: {question['options']}")
     
+    # Get the player's answer and normalize it to uppercase
     user_answer = input('Your answer (A/B/C/D): ')
 
+    # Check if the answer is correct
     if user_answer.upper() == question['answer']:
         print('Correct!')
-        p+=1
-        if p==5 or p==9 or p==11:
-            print(f'Congratulations! You have won Rs. {prices[((p-2)//3)-1]}! \n')  
+        p += 1
+
+        # Award prize money when the player reaches a guaranteed milestone
+        if p == 5 or p == 9 or p == 11:
+            guaranteed_index = ((p - 2) // 3) - 1
+            print(f'Congratulations! You have won Rs. {prices[guaranteed_index]}! \n')
     else:
+        # Show the correct answer and final prize money on a wrong response
         print(f'Wrong! The correct answer is {question["answer"]}.')
-        print(f'You can take home Rs. {prices[((p-2)//3)-1]}!')
+        guaranteed_index = ((p - 2) // 3) - 1
+        print(f'You can take home Rs. {prices[guaranteed_index]}!')
         print('Better luck next time!')
         break
+
 print('Quiz completed!')
 
 
